@@ -1,1 +1,1 @@
-__author__ = 'Kuba'
+""" Module responsible for captuing the image. """
