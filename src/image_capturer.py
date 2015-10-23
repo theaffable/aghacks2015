@@ -1,1 +1,1 @@
-""" Module responsible for captuing the image. """
+""" Module responsible for capturing the image. """
