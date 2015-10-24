@@ -11,11 +11,12 @@ def calculate_next_action(diff, last_x, next_obstacle):
     The state of the board is defined by the list of obstacles and current speed of the character.
     """
 
-    speed = diff/0.01667
+    speed = diff * util.FPS
 
     #print next_obstacle - last_x  #-> [150....400]
-    print (1-(next_obstacle - last_x)/600.0)*30
-    if (last_x > 70) and (speed*0.01667 > last_x-170+(1-(next_obstacle - last_x)/600.0)*40):   #-180 sprobuje wyskoczyc mozliwie wczesnie!
+    print next_obstacle, last_x
+    print (1-(next_obstacle - last_x)/450.0)*35
+    if (last_x>70) and (speed/util.FPS > last_x-100-(1-(next_obstacle - last_x)/600.0)*35):   #-180 sprobuje wyskoczyc mozliwie wczesnie!
 	return structures.Actions.JUMP
     return structures.Actions.WAIT
 
@@ -39,6 +40,7 @@ def get_nearest_obstacle(obstacles):
     """
     Returns the first obstacle in the list if it exists. If not it returns None.
     """
+    obstacles = filter(lambda a: a.x>70, obstacles)
     if obstacles:
         return obstacles[0].x
     return 600
