@@ -21,7 +21,7 @@ class Cactus(Obstacle):
     and adds it's own fields - width and height.
     """
     def __init__(self, x, width, height):
-        super.__init__(x)
+        super(Cactus, self).__init__(x)
         self.width = width
         self.height = height
 
@@ -32,7 +32,7 @@ class Pterodactyl(Obstacle):
     and adds Y axis location.
     """
     def __init__(self, x, y):
-        super.__init__(x)
+        super(Pterodactyl, self).__init__(x)
         self.y = y
 
 
