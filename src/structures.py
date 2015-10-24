@@ -1,9 +1,6 @@
 """ Module with all structures used throughout the program. """
 
 
-from enum import Enum
-
-
 class Rectangle(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -39,7 +36,7 @@ class Pterodactyl(Obstacle):
         self.y = y
 
 
-class Moves(Enum):
+class Moves(object):
     """
     Enum class that represents possible moves for our character.
     """
