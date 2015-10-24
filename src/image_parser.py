@@ -52,19 +52,17 @@ def match_pteros(image, file_names, path):
 
 
 def match_dino(image, file_name, path):
-    objects = []
-    # for templatePath in file_names:
+    dinos = []
     img_rgb = cv2.cvtColor(numpy.asarray(image), cv2.COLOR_RGB2BGR)
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(path+"/"+file_name, 0)
-    w, h = template.shape[::-1]
 
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.4
     loc = numpy.where(res >= threshold)
     for pt in zip(*loc[::-1]):
-        objects.append(Dino(pt[1]))
-    dino = [reduce(lambda a, b: Dino(max(a.height, b.height))), objects]
+        dinos.append(Dino(pt[1]))
+    dino = [reduce(lambda a, b: Dino(max(a.height, b.height)), dinos)]
     if dino:
         return dino[0]
     else:
