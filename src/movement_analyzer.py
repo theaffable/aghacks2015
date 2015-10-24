@@ -5,7 +5,7 @@ import util
 import structures
 
 
-def calculate_next_move(obstacles, current_speed):
+def calculate_next_action(obstacles, current_speed):
     """
     Function determines next optimal move for given state of the board.
     The state of the board is defined by the list of obstacles and current speed of the character.
@@ -15,13 +15,13 @@ def calculate_next_move(obstacles, current_speed):
 
     # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
     if nearest_obstacle is None:
-        return structures.Moves.WAIT
+        return structures.Actions.WAIT
 
     jump_distance = calculate_jump_distance(current_speed)
     if nearest_obstacle.x - util.DINO_WIDTH < jump_distance / 2.0:
-        return structures.Moves.JUMP
+        return structures.Actions.JUMP
 
-    return structures.Moves.WAIT
+    return structures.Actions.WAIT
 
 
 def calculate_jump_distance(current_speed):

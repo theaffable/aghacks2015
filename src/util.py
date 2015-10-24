@@ -4,12 +4,53 @@ We will need this module only if canvas-through-websocket won't work.
 """
 
 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+from structures import Moves
+
+
 # constants
 MIN_JUMP_HEIGHT = 35
 TIME_IN_AIR = 40        # time spent in the air with the basic jump force
 DINO_WIDTH = 20
 
+ACCELERATION = 0.001
+MAX_SPEED = 13
+SPEED = 6
+FPS = 30.0
+BROWSER_OPEN_TIME = 3
 
-def find_game_rectangle(image):
-    """ Finds game rectangle in the given screenshot. Returns rectangle structure from structures.py. """
-    pass
+
+def calculate_speed(time, acceleration):
+    if time == 0:
+        return SPEED
+
+    # we must check if current speed is not higher than MAX_SPEED
+    current_speed = time * acceleration
+    if current_speed > MAX_SPEED:
+        return MAX_SPEED
+
+    return current_speed
+
+
+def perform_action(action, browser):
+    """
+    Performs given action inside the browser.
+    """
+    elem = browser.find_element_by_tag_name('canvas') # Find the search box
+
+    if action == Moves.JUMP:
+        webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.UP).perform()
+    elif action == Moves.DUCK:
+        webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.DOWN).perform()
+    else:
+        pass    # if is equal to Moves.Wait we don't have to do anything
+
+
+def open_browser():
+    browser = webdriver.Chrome(r"C:\Users\Kuba\Documents\aghacks2015\resources\chromedriver.exe")
+    # must wait some time for loading
+    sleep(BROWSER_OPEN_TIME)
+    browser.get('http://127.0.0.1')
+    return browser

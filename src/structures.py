@@ -36,7 +36,7 @@ class Pterodactyl(Obstacle):
         self.y = y
 
 
-class Moves(object):
+class Actions(object):
     """
     Enum class that represents possible moves for our character.
     """
