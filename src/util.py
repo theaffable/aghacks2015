@@ -8,7 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from structures import Actions
-from os import environ
 
 
 # constants
@@ -16,7 +15,7 @@ MIN_JUMP_HEIGHT = 35
 TIME_IN_AIR = 40        # time spent in the air with the basic jump force
 DINO_WIDTH = 20
 
-ACCELERATION = 0.0004
+ACCELERATION = 0.0001
 MAX_SPEED = 13
 SPEED = 6
 FPS = 60.0
