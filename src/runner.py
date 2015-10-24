@@ -8,12 +8,16 @@ import structures
 import image_capturer
 import image_parser
 import movement_analyzer
+from Queue import Queue
 from time import sleep
 
 
 if __name__ == '__main__':
     browser = util.open_browser()
     util.perform_action(structures.Actions.JUMP, browser)
+
+    # we initialize action queue. We can store multiple actions that will be performed in each frame.
+    actions_queue = Queue()
 
     # we initialize the speed
     speed = util.SPEED
@@ -27,19 +31,16 @@ if __name__ == '__main__':
         board_image = image_capturer.get_image_from_browser(browser)
 
         # then retrieve obstacles from given area
-        obstacles = image_parser.get_obstacles_from_image(board_image)
-        print "Obstacles:"
-        for obstacle in obstacles:
-            print obstacle
+        dino, obstacles = image_parser.get_objects_from_image(board_image)
 
         # calculate our speed
         speed = util.calculate_speed(speed, time, util.ACCELERATION)
 
-        # calculate optimal move
-        action = movement_analyzer.calculate_next_action(obstacles, speed)
+        # calculate optimal move and populate the action queue
+        movement_analyzer.calculate_next_actions(obstacles, speed, dino.height,  actions_queue)
 
         # perform next move
-        util.perform_action(action, browser)
+        util.perform_action(actions_queue.get(), browser)
 
         # sleep the time equal to the time of 1 frame
         sleep(1 / util.FPS)
