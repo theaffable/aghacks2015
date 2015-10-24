@@ -26,7 +26,7 @@ class Cactus(Obstacle):
         self.height = height
 
     def __str__(self):
-	return "Cactus(%d, %d, %d)" % (self.x, self.width, self.height)
+        return "Cactus(%d, %d, %d)" % (self.x, self.width, self.height)
 
 
 class Pterodactyl(Obstacle):
