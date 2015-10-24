@@ -4,6 +4,7 @@ Starting point of our program.
 
 
 import util
+import structures
 import image_capturer
 import image_parser
 import movement_analyzer
@@ -12,13 +13,14 @@ from time import sleep
 
 if __name__ == '__main__':
     browser = util.open_browser()
+    util.perform_action(structures.Actions.JUMP, browser)
 
     # in our case the time is the amount of frames that were displayed on the screen
     time = 0
     while True:
         time += 1
 
-        # retrieve the image of the whole game area
+        # we store the current board image
         board_image = image_capturer.get_image_from_browser(browser)
 
         # then retrieve obstacles from given area
