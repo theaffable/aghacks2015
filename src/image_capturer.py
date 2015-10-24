@@ -2,11 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from io import BytesIO
 from PIL import Image
+from time import sleep
+import os
 
 
 def open_browser():
-    browser = webdriver.Chrome('C:/Users/Kuba/Documents/aghacks2015/chromedriver')
+    browser = webdriver.Chrome(os.environ["CHROME_DRIVER"])
     # must wait some time for loading
+    sleep(3)
     browser.get('http://www.9gag.com')
     return browser
 
