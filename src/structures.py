@@ -1,6 +1,9 @@
 """ Module with all structures used throughout the program. """
 
 
+from enum import Enum
+
+
 class Rectangle(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -18,10 +21,11 @@ class Obstacle(object):
 class Cactus(Obstacle):
     """
     Class that represents a cactus obstacle seen in the game. Cactus inherits X axis location from Obstacle class
-    and adds it's own field - height.
+    and adds it's own fields - width and height.
     """
-    def __init__(self, x, height):
+    def __init__(self, x, width, height):
         super.__init__(x)
+        self.width = width
         self.height = height
 
 
@@ -33,3 +37,12 @@ class Pterodactyl(Obstacle):
     def __init__(self, x, y):
         super.__init__(x)
         self.y = y
+
+
+class Moves(Enum):
+    """
+    Enum class that represents possible moves for our character.
+    """
+    Wait = 0
+    Jump = 1
+    Duck = 2
