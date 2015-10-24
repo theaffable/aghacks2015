@@ -3,7 +3,7 @@ Module containing all of the utility functions.
 We will need this module only if canvas-through-websocket won't work.
 """
 
-
+from config import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
@@ -49,7 +49,7 @@ def perform_action(action, browser):
 
 
 def open_browser():
-    browser = webdriver.Chrome(r"C:\Users\Kuba\Documents\aghacks2015\resources\chromedriver.exe")
+    browser = webdriver.Chrome(CHROME_DRIVER_DIR)
     # must wait some time for loading
     sleep(BROWSER_OPEN_TIME)
     browser.get('http://9gag.com')
