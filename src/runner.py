@@ -37,7 +37,8 @@ if __name__ == '__main__':
         speed = util.calculate_speed(speed, time, util.ACCELERATION)
 
         # calculate optimal move and populate the action queue
-        movement_analyzer.calculate_next_action(cactuses, pteros, speed, dino.height,  actions_queue)
+        movement_analyzer.calculate_next_action(cactuses, pteros, speed, util.convert_dino_height(dino.height),  actions_queue)
+        print util.convert_dino_height(dino.height)
 
         # perform next move
         util.perform_action(actions_queue.get(), browser)

@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from structures import Actions
-import math
+
 
 # constants
 MIN_JUMP_HEIGHT = 35
@@ -20,6 +20,7 @@ MAX_SPEED = 13
 SPEED = 6
 FPS = 60.0
 BROWSER_OPEN_TIME = 3
+DINO_RANDOM_HEIGHT_LOL = 98
 
 
 def calculate_speed(previous_speed, time, acceleration):
@@ -32,6 +33,10 @@ def calculate_speed(previous_speed, time, acceleration):
         return MAX_SPEED
 
     return current_speed
+
+
+def convert_dino_height(height):
+    return DINO_RANDOM_HEIGHT_LOL - height
 
 
 def perform_action(action, browser):
