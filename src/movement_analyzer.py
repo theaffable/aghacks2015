@@ -5,20 +5,20 @@ import util
 import structures
 
 
-def calculate_next_action(obstacles, current_speed):
+def calculate_next_action(cactuses, pteros, current_speed, current_height, actions_queue):
     """
     Function determines next optimal move for given state of the board.
     The state of the board is defined by the list of obstacles and current speed of the character.
     """
-    obstacles = merge_obstacles(obstacles, delta=30)
-    nearest_obstacle = get_nearest_obstacle(obstacles)
+    cactuses = merge_obstacles(cactuses, delta=30)
+    nearest_cactus = get_nearest_obstacle(cactuses)
 
     # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
-    if nearest_obstacle is None:
+    if nearest_cactus is None:
         return structures.Actions.WAIT
 
     jump_distance = calculate_jump_distance(current_speed) 
-    if nearest_obstacle.x+nearest_obstacle.width/2.0 - util.DINO_WIDTH < (jump_distance / 1.5):
+    if nearest_cactus.x + nearest_cactus.width / 2.0 - util.DINO_WIDTH < (jump_distance / 1.5):
         return structures.Actions.JUMP
 
     return structures.Actions.WAIT
