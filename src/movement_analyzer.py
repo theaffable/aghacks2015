@@ -28,14 +28,12 @@ def calculate_jump_distance(current_speed):
     return current_speed * util.TIME_IN_AIR
 
 
-def merge_obstacles(obstacles):
+def merge_obstacles(obstacles, delta):
     """
     Merges obstacles contained in the given list. Merging is performed if two or more obstacles are next to each other.
     Returns new list where len(obstacles) >= len(result_list).
     """
-    # TODO implement
-    # TODO create test cases
-    return obstacles
+    return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, obstacles)]
 
 
 def get_nearest_obstacle(obstacles):
