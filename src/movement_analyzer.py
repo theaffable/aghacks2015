@@ -42,7 +42,7 @@ def get_nearest_obstacle(obstacles):
     """
     Returns the first obstacle in the list if it exists. If not it returns None.
     """
-    if len(obstacles) >= 1:
+    if obstacles:
         return obstacles[0]
     return None
 
