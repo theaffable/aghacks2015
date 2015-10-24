@@ -10,7 +10,7 @@ def calculate_next_action(obstacles, current_speed):
     Function determines next optimal move for given state of the board.
     The state of the board is defined by the list of obstacles and current speed of the character.
     """
-    obstacles = merge_obstacles(obstacles, delta=3)
+    obstacles = merge_obstacles(obstacles, delta=30)
     nearest_obstacle = get_nearest_obstacle(obstacles)
 
     # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
@@ -34,7 +34,7 @@ def merge_obstacles(obstacles, delta):
     Returns new list where len(obstacles) >= len(result_list).
     """
     if obstacles:
-	#return sorted(obstacles, lambda a, b: a.x - b.x)
+    #return sorted(obstacles, lambda a, b: a.x - b.x)
         return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, sorted(obstacles, lambda a, b: a.x - b.x))] 
     return []
 
@@ -44,7 +44,6 @@ def get_nearest_obstacle(obstacles):
     Returns the first obstacle in the list if it exists. If not it returns None.
     """
     if obstacles:
-	print "obstacle:", obstacles[0]
         return obstacles[0]
     return None
 

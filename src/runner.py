@@ -15,10 +15,9 @@ if __name__ == '__main__':
     browser = util.open_browser()
     util.perform_action(structures.Actions.JUMP, browser)
 
-    sleep(3)
-    util.perform_action(1, browser)
-
+    # we initialize the speed
     speed = util.SPEED
+
     # in our case the time is the amount of frames that were displayed on the screen
     time = 0
     while True:
@@ -29,6 +28,9 @@ if __name__ == '__main__':
 
         # then retrieve obstacles from given area
         obstacles = image_parser.get_obstacles_from_image(board_image)
+        print "Obstacles:"
+        for obstacle in obstacles:
+            print obstacle
 
         # calculate our speed
         speed = util.calculate_speed(speed, time, util.ACCELERATION)
