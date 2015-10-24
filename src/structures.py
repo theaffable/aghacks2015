@@ -9,6 +9,11 @@ class Rectangle(object):
         self.height = height
 
 
+class Dino(object):
+    def __init__(self, height):
+        self.height = height
+
+
 class Obstacle(object):
     """ Class used to represent obstacles. Each of those obstacles has it's own location on X axis. """
     def __init__(self, x):
@@ -46,3 +51,4 @@ class Actions(object):
     WAIT = 0
     JUMP = 1
     DUCK = 2
+
