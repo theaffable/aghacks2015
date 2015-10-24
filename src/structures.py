@@ -21,10 +21,11 @@ class Obstacle(object):
 class Cactus(Obstacle):
     """
     Class that represents a cactus obstacle seen in the game. Cactus inherits X axis location from Obstacle class
-    and adds it's own field - height.
+    and adds it's own fields - width and height.
     """
-    def __init__(self, x, height):
+    def __init__(self, x, width, height):
         super.__init__(x)
+        self.width = width
         self.height = height
 
 
