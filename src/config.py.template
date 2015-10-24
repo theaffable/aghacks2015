@@ -1,0 +1,6 @@
+"""
+Provides user specific config.
+Must be filled with proper settings as a config.py file.
+"""
+
+CHROME_DRIVER_DIR = chromedriver.exe
