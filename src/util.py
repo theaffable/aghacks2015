@@ -38,8 +38,6 @@ def perform_action(action, browser):
     """
     Performs given action inside the browser.
     """
-    elem = browser.find_element_by_tag_name('canvas')   # Find the search box
-
     if action == Actions.JUMP:
         webdriver.ActionChains(browser).key_up(Keys.UP).perform()
     elif action == Actions.DUCK:
