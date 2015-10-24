@@ -41,9 +41,9 @@ def perform_action(action, browser):
     elem = browser.find_element_by_tag_name('canvas')   # Find the search box
 
     if action == Actions.JUMP:
-        webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.UP).perform()
+        webdriver.ActionChains(browser).key_up(Keys.UP).perform()
     elif action == Actions.DUCK:
-        webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.DOWN).perform()
+        webdriver.ActionChains(browser).key_up(Keys.DOWN).perform()
     else:
         pass    # if is equal to Moves.Wait we don't have to do anything
 
