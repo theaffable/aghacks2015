@@ -51,23 +51,22 @@ def match_pteros(image, file_names, path):
     return [reduce(lambda a, b: Pterodactyl(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_pteros]
 
 
-def match_dino(image, file_names, path):
+def match_dino(image, file_name, path):
     objects = []
-    for templatePath in file_names:
-        img_rgb = cv2.cvtColor(numpy.asarray(image), cv2.COLOR_RGB2BGR)
-        img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-        template = cv2.imread(path+"/"+templatePath, 0)
-        w, h = template.shape[::-1]
+    # for templatePath in file_names:
+    img_rgb = cv2.cvtColor(numpy.asarray(image), cv2.COLOR_RGB2BGR)
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(path+"/"+file_name, 0)
+    w, h = template.shape[::-1]
 
-        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-        threshold = 0.4
-        loc = numpy.where(res >= threshold)
-        for pt in zip(*loc[::-1]):
-            objects.append(Dino(h))
-    unique_x = list(set(map(lambda dino: dino.x, objects)))
-    dino = [reduce(lambda a, b: Dino(max(a.height, b.height)), x) for x in unique_x]
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = 0.4
+    loc = numpy.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        objects.append(Dino(pt[1]))
+    dino = [reduce(lambda a, b: Dino(max(a.height, b.height))), objects]
     if dino:
-        return dino[1]
+        return dino[0]
     else:
         return None
 
