@@ -10,7 +10,7 @@ def calculate_next_move(obstacles, current_speed):
     Function determines next optimal move for given state of the board.
     The state of the board is defined by the list of obstacles and current speed of the character.
     """
-    obstacles = merge_obstacles(obstacles)
+    obstacles = merge_obstacles(obstacles, delta=3)
     nearest_obstacle = get_nearest_obstacle(obstacles)
 
     # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
