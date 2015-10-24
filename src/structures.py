@@ -42,5 +42,6 @@ class Moves(Enum):
     """
     Enum class that represents possible moves for our character.
     """
-    jump = 0
-    duck = 1
+    Wait = 0
+    Jump = 1
+    Duck = 2
