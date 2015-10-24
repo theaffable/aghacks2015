@@ -31,7 +31,6 @@ def calculate_speed(previous_speed, time, acceleration):
     if current_speed > MAX_SPEED:
         return MAX_SPEED
 
-    print current_speed
     return current_speed
 
 
