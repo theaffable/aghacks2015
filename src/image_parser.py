@@ -16,40 +16,21 @@ path = "../resources/templates"
 templatesPaths = [f for f in listdir(path) if isfile(join(path, f))]
 
 def process_image(image):
-	hit = 0
 	cactuses = []
 	for templatePath in templatesPaths:
-		print image
-		#nparr = np.fromstring(image, np.uint8)
-		#image = cv2.imdecode(nparr, cv2.CV_LOAD_IMAGE_COLOR)
-		#
-		#image = np.array(image)
-		#image = cv2.imdecode(image, cv2.CV_LOAD_IMAGE_COLOR)
-		# 
-		open_cv_image = np.array(image) 
-		# Convert RGB to BGR 
-		image = open_cv_image[:, :, ::-1].copy() 
-		#
-		img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+		img_rgb = cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR)
+		img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 		template = cv2.imread(path+"/"+templatePath, 0)
 		w, h = template.shape[::-1]
 
 		res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-		threshold = 0.8
+		threshold = 0.5
 		loc = np.where(res >= threshold)
 		for pt in zip(*loc[::-1]):
-			hit += 1
-			cv2.rectangle(image, pt, (pt[0] + w, pt[1] + h), (0,0,255), 2)
-			cactuses.append(Cactus(pt[0], w, h))
-	cv2.imwrite(path+"/out/"+str(randint(1, 1000)) + ".png", image)	
-
-		
-	
-	#todo offset of trees
-	print "amount of trees:", hit
-	return cactuses
-
-
+			cactuses.append(Cactus(pt[0], w, h))	
+	unique_x = list(set(map(lambda cactus: cactus.x, cactuses)))
+	new_cactuses = [ filter(lambda cactus: cactus.x == x, cactuses) for x in unique_x]
+	return [reduce(lambda a,b: Cactus(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_cactuses]
 
 if __name__== "__main__":
 	browser = IC.open_browser()
@@ -62,7 +43,6 @@ if __name__== "__main__":
 		print
 		#todo rethink performing action & sleep
 		IC.perform_action(browser)
-		sleep(1)
 		
 
 
