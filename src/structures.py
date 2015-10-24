@@ -25,6 +25,9 @@ class Cactus(Obstacle):
         self.width = width
         self.height = height
 
+    def __str__(self):
+	return "Cactus(%d, %d, %d)" % (self.x, self.width, self.height)
+
 
 class Pterodactyl(Obstacle):
     """

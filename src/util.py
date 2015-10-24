@@ -7,7 +7,7 @@ We will need this module only if canvas-through-websocket won't work.
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
-from structures import Moves
+from structures import Actions
 
 
 # constants
@@ -40,9 +40,9 @@ def perform_action(action, browser):
     """
     elem = browser.find_element_by_tag_name('canvas') # Find the search box
 
-    if action == Moves.JUMP:
+    if action == Actions.JUMP:
         webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.UP).perform()
-    elif action == Moves.DUCK:
+    elif action == Actions.DUCK:
         webdriver.ActionChains(browser).move_to_element(elem).key_up(Keys.DOWN).perform()
     else:
         pass    # if is equal to Moves.Wait we don't have to do anything
@@ -52,5 +52,5 @@ def open_browser():
     browser = webdriver.Chrome(r"C:\Users\Kuba\Documents\aghacks2015\resources\chromedriver.exe")
     # must wait some time for loading
     sleep(BROWSER_OPEN_TIME)
-    browser.get('http://127.0.0.1')
+    browser.get('http://9gag.com')
     return browser

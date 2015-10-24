@@ -7,7 +7,7 @@ import util
 import image_capturer
 import image_parser
 import movement_analyzer
-import time
+from time import sleep
 
 
 if __name__ == '__main__':
@@ -34,4 +34,4 @@ if __name__ == '__main__':
         util.perform_action(action, browser)
 
         # sleep the time equal to the time of 1 frame
-        time.sleep(1 / util.FPS)
+        sleep(1 / util.FPS)
