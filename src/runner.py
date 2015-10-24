@@ -14,32 +14,20 @@ from time import sleep
 if __name__ == '__main__':
     browser = util.open_browser()
     util.perform_action(structures.Actions.JUMP, browser)
+	
+    last_pos = 600
+    sleep(4)
 
-    # we initialize the speed
-    speed = util.SPEED
-
-    # in our case the time is the amount of frames that were displayed on the screen
-    time = 0
     while True:
-        time += 1
-
-        # we store the current board image
         board_image = image_capturer.get_image_from_browser(browser)
-
-        # then retrieve obstacles from given area
         obstacles = image_parser.get_obstacles_from_image(board_image)
-        print "Obstacles:"
-        for obstacle in obstacles:
-            print obstacle
+	
+	tmp = movement_analyzer.get_nearest_obstacle(obstacles)
+	diff = last_pos - tmp
+	last_pos = tmp
+	
+	next_obstacle = obstacles[1].x if len(obstacles)>1 else 600
 
-        # calculate our speed
-        speed = util.calculate_speed(speed, time, util.ACCELERATION)
-
-        # calculate optimal move
-        action = movement_analyzer.calculate_next_action(obstacles, speed)
-
-        # perform next move
+        action = movement_analyzer.calculate_next_action(diff, tmp, next_obstacle)
         util.perform_action(action, browser)
-
-        # sleep the time equal to the time of 1 frame
-        sleep(1 / util.FPS)
+	sleep(1/util.FPS)

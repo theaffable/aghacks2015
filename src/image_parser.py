@@ -26,4 +26,4 @@ def get_obstacles_from_image(image):
             cactuses.append(Cactus(pt[0], w, h))
     unique_x = list(set(map(lambda cactus: cactus.x, cactuses)))
     new_cactuses = [filter(lambda cactus: cactus.x == x, cactuses) for x in unique_x]
-    return [reduce(lambda a, b: Cactus(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_cactuses]
+    return sorted([reduce(lambda a, b: Cactus(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_cactuses], lambda a, b: a.x - b.x)

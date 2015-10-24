@@ -5,27 +5,23 @@ import util
 import structures
 
 
-def calculate_next_action(obstacles, current_speed):
+def calculate_next_action(diff, last_x, next_obstacle):
     """
     Function determines next optimal move for given state of the board.
     The state of the board is defined by the list of obstacles and current speed of the character.
     """
-    obstacles = merge_obstacles(obstacles, delta=30)
-    nearest_obstacle = get_nearest_obstacle(obstacles)
 
-    # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
-    if nearest_obstacle is None:
-        return structures.Actions.WAIT
+    speed = diff/0.01667
 
-    jump_distance = calculate_jump_distance(current_speed) 
-    if nearest_obstacle.x+nearest_obstacle.width/2.0 - util.DINO_WIDTH < jump_distance / 1.5:
-        return structures.Actions.JUMP
-
+    #print next_obstacle - last_x  #-> [150....400]
+    print (1-(next_obstacle - last_x)/600.0)*30
+    if (last_x > 70) and (speed*0.01667 > last_x-170+(1-(next_obstacle - last_x)/600.0)*40):   #-180 sprobuje wyskoczyc mozliwie wczesnie!
+	return structures.Actions.JUMP
     return structures.Actions.WAIT
 
 
 def calculate_jump_distance(current_speed):
-    return current_speed * util.TIME_IN_AIR
+    return current_speed
 
 
 def merge_obstacles(obstacles, delta):
@@ -34,8 +30,8 @@ def merge_obstacles(obstacles, delta):
     Returns new list where len(obstacles) >= len(result_list).
     """
     if obstacles:
-    #return sorted(obstacles, lambda a, b: a.x - b.x)
-        return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, sorted(obstacles, lambda a, b: a.x - b.x))] 
+    	return sorted(obstacles, lambda a, b: a.x - b.x)
+        #return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, sorted(obstacles, lambda a, b: a.x - b.x))] 
     return []
 
 
@@ -44,6 +40,6 @@ def get_nearest_obstacle(obstacles):
     Returns the first obstacle in the list if it exists. If not it returns None.
     """
     if obstacles:
-        return obstacles[0]
-    return None
+        return obstacles[0].x
+    return 600
 

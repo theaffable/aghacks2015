@@ -19,7 +19,7 @@ ACCELERATION = 0.0001
 MAX_SPEED = 13
 SPEED = 6
 FPS = 60.0
-BROWSER_OPEN_TIME = 3
+BROWSER_OPEN_TIME = 5
 
 
 def calculate_speed(previous_speed, time, acceleration):
