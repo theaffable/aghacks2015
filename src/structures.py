@@ -39,9 +39,10 @@ class Pterodactyl(Obstacle):
     Class that represents a pterodactyl obstacle seen later in the game. Inherits X axis location from Obstacle class
     and adds Y axis location.
     """
-    def __init__(self, x, y):
+    def __init__(self, x, width, height):
         super(Pterodactyl, self).__init__(x)
-        self.y = y
+        self.width = width
+        self.height = height
 
 
 class Actions(object):

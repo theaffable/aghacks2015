@@ -18,14 +18,14 @@ def calculate_next_action(obstacles, current_speed):
         return structures.Actions.WAIT
 
     jump_distance = calculate_jump_distance(current_speed) 
-    if nearest_obstacle.x+nearest_obstacle.width/2.0 - util.DINO_WIDTH < jump_distance / 1.5:
+    if nearest_obstacle.x+nearest_obstacle.width/2.0 - util.DINO_WIDTH < (jump_distance / 1.5):
         return structures.Actions.JUMP
 
     return structures.Actions.WAIT
 
 
 def calculate_jump_distance(current_speed):
-    return current_speed * util.TIME_IN_AIR
+    return current_speed * util.TIME_IN_AIR + (util.ACCELERATION*util.TIME_IN_AIR*util.TIME_IN_AIR)/2.0
 
 
 def merge_obstacles(obstacles, delta):

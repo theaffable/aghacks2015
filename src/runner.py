@@ -31,13 +31,13 @@ if __name__ == '__main__':
         board_image = image_capturer.get_image_from_browser(browser)
 
         # then retrieve obstacles from given area
-        dino, obstacles = image_parser.get_objects_from_image(board_image)
+        (dino, cactuses, pteros) = image_parser.get_objects_from_image(board_image)
 
         # calculate our speed
         speed = util.calculate_speed(speed, time, util.ACCELERATION)
 
         # calculate optimal move and populate the action queue
-        movement_analyzer.calculate_next_actions(obstacles, speed, dino.height,  actions_queue)
+        movement_analyzer.calculate_next_action(cactuses, pteros, speed, dino.height,  actions_queue)
 
         # perform next move
         util.perform_action(actions_queue.get(), browser)
