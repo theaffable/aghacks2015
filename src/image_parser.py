@@ -20,7 +20,7 @@ def get_obstacles_from_image(image):
         w, h = template.shape[::-1]
 
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-        threshold = 0.5
+        threshold = 0.8
         loc = numpy.where(res >= threshold)
         for pt in zip(*loc[::-1]):
             cactuses.append(Cactus(pt[0], w, h))

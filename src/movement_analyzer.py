@@ -17,8 +17,8 @@ def calculate_next_action(obstacles, current_speed):
     if nearest_obstacle is None:
         return structures.Actions.WAIT
 
-    jump_distance = calculate_jump_distance(current_speed)
-    if nearest_obstacle.x - util.DINO_WIDTH < jump_distance / 2.0:
+    jump_distance = calculate_jump_distance(current_speed) 
+    if nearest_obstacle.x+nearest_obstacle.width/2.0 - util.DINO_WIDTH < jump_distance / 1.5:
         return structures.Actions.JUMP
 
     return structures.Actions.WAIT
@@ -34,7 +34,8 @@ def merge_obstacles(obstacles, delta):
     Returns new list where len(obstacles) >= len(result_list).
     """
     if obstacles:
-        return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, obstacles)]
+	#return sorted(obstacles, lambda a, b: a.x - b.x)
+        return [reduce(lambda o1, o2: structures.Cactus(o1.x, o2.x + o2.width - o1.x, o1.height if o1.height > o2.height else o2.height) if o1.x + o1.width + delta >= o2.x else o1, sorted(obstacles, lambda a, b: a.x - b.x))] 
     return []
 
 
@@ -43,6 +44,7 @@ def get_nearest_obstacle(obstacles):
     Returns the first obstacle in the list if it exists. If not it returns None.
     """
     if obstacles:
+	print "obstacle:", obstacles[0]
         return obstacles[0]
     return None
 
