@@ -65,7 +65,7 @@ def match_dino(image, file_names, path):
         for pt in zip(*loc[::-1]):
             objects.append(Dino(h))
     unique_x = list(set(map(lambda dino: dino.x, objects)))
-    return [reduce(lambda a, b: Dino(max(a.height, b.height)), x) for x in unique_x]
+    return [reduce(lambda a, b: Dino(max(a.height, b.height)), x) for x in unique_x][0]
 
 
 def get_objects_from_image(image):
