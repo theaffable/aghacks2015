@@ -8,11 +8,10 @@ from structures import Cactus, Pterodactyl, Dino
 
 
 cactusPath = "../resources/templates/cactus"
-pteroPath = "../resources/templates/ptero"
-dinoPath = "../resources/templates/dino"
 cactusPaths = [f for f in listdir(cactusPath) if isfile(join(cactusPath, f))]
+pteroPath = "../resources/templates/ptero"
 pteroPaths = [f for f in listdir(pteroPath) if isfile(join(pteroPath, f))]
-dinoPaths = [f for f in listdir(dinoPath) if isfile(join(dinoPath, f))]
+dinoPath = "../resources/templates/dino/dino.png"
 
 
 def match_cactuses(image, file_names, path):
@@ -51,11 +50,11 @@ def match_pteros(image, file_names, path):
     return [reduce(lambda a, b: Pterodactyl(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_pteros]
 
 
-def match_dino(image, file_name, path):
+def match_dino(image, path):
     dinos = []
     img_rgb = cv2.cvtColor(numpy.asarray(image), cv2.COLOR_RGB2BGR)
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(path+"/"+file_name, 0)
+    template = cv2.imread(path, 0)
 
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.4
@@ -72,5 +71,5 @@ def match_dino(image, file_name, path):
 def get_objects_from_image(image):
     cactuses = match_cactuses(image, cactusPaths, cactusPath)
     pteros = match_pteros(image, pteroPaths, pteroPath)
-    dino = match_dino(image, dinoPaths, dinoPath)
+    dino = match_dino(image, dinoPath)
     return (dino, cactuses, pteros)
