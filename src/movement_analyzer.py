@@ -14,11 +14,12 @@ def calculate_next_action(cactuses, pteros, current_speed, current_height, actio
     nearest_cactus = get_nearest_obstacle(cactuses)
 
     # if the nearest obstacle is None it means that there are no obstacles on the board, we can do nothing
-    if nearest_cactus is None and actions_queue.empty():
-        actions_queue.put(structures.Actions.WAIT)
+    if nearest_cactus is None:
+        if actions_queue.empty():
+            actions_queue.put(structures.Actions.WAIT)
         return
 
-    jump_distance = calculate_jump_distance(current_speed) 
+    jump_distance = calculate_jump_distance(current_speed)
     if nearest_cactus.x + nearest_cactus.width / 2.0 - util.DINO_WIDTH < (jump_distance / 1.5):
         actions_queue.put(structures.Actions.JUMP)
         return

@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from time import sleep
 from structures import Actions
+import keypresser
 
 
 # constants
@@ -46,7 +47,9 @@ def perform_action(action, browser):
     if action == Actions.JUMP:
         webdriver.ActionChains(browser).key_up(Keys.UP).perform()
     elif action == Actions.DUCK:
-        webdriver.ActionChains(browser).key_up(Keys.DOWN).perform()
+        keypresser.KeyDown(40)
+        sleep(0.5)
+        keypresser.KeyUp(40)
     else:
         pass    # if is equal to Moves.Wait we don't have to do anything
 
