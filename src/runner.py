@@ -13,6 +13,10 @@ from time import sleep
 if __name__ == '__main__':
     browser = util.open_browser()
 
+    sleep(3)
+    util.perform_action(1, browser)
+
+    speed = util.SPEED
     # in our case the time is the amount of frames that were displayed on the screen
     time = 0
     while True:
@@ -25,7 +29,7 @@ if __name__ == '__main__':
         obstacles = image_parser.get_obstacles_from_image(board_image)
 
         # calculate our speed
-        speed = util.calculate_speed(time, util.ACCELERATION)
+        speed = util.calculate_speed(speed, time, util.ACCELERATION)
 
         # calculate optimal move
         action = movement_analyzer.calculate_next_action(obstacles, speed)
