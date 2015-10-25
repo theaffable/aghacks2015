@@ -8,7 +8,6 @@ import structures
 import image_capturer
 import image_parser
 import movement_analyzer
-from Queue import Queue
 from time import sleep
 
 
@@ -16,8 +15,8 @@ if __name__ == '__main__':
     browser = util.open_browser()
     util.perform_action(structures.Actions.JUMP, browser)
 
-    # we initialize action queue. We can store multiple actions that will be performed in each frame.
-    actions_queue = Queue()
+    last_pos = 600
+    sleep(4)
 
     # we initialize the speed
     speed = util.SPEED
@@ -31,16 +30,17 @@ if __name__ == '__main__':
         board_image = image_capturer.get_image_from_browser(browser)
 
         # then retrieve obstacles from given area
-        (dino, cactuses, pteros) = image_parser.get_objects_from_image(board_image)
+        cactuses, pteros = image_parser.get_objects_from_image(board_image)
+        if pteros:
+            print "PTERODAKTYL ------------------------------------------------", len(pteros)
 
-        # calculate our speed
-        speed = util.calculate_speed(speed, time, util.ACCELERATION)
+        obstacles = sorted(cactuses + pteros, lambda a, b: a.x - b.x)
+        tmp = movement_analyzer.get_nearest_obstacle_x(obstacles)
+        diff = last_pos - tmp
+        last_pos = tmp
 
-        # calculate optimal move and populate the action queue
-        movement_analyzer.calculate_next_action(cactuses, pteros, speed, util.convert_dino_height(dino.height),  actions_queue)
+        next_obstacle = obstacles[1] if len(obstacles) > 1 else structures.Obstacle(600)
 
-        # perform next move
-        util.perform_action(actions_queue.get(), browser)
-
-        # sleep the time equal to the time of 1 frame
-        sleep(1 / util.FPS)
+        action = movement_analyzer.calculate_next_action(diff, tmp, next_obstacle)
+        util.perform_action(action, browser)
+        sleep(1/util.FPS)

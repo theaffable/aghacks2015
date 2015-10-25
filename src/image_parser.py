@@ -23,13 +23,13 @@ def match_cactuses(image, file_names, path):
         w, h = template.shape[::-1]
 
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-        threshold = 0.4
+        threshold = 0.3
         loc = numpy.where(res >= threshold)
         for pt in zip(*loc[::-1]):
             objects.append(Cactus(pt[0], w, h))
     unique_x = list(set(map(lambda cactus: cactus.x, objects)))
     new_cactuses = [filter(lambda cactus: cactus.x == x, objects) for x in unique_x]
-    return [reduce(lambda a, b: Cactus(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_cactuses]
+    return sorted([reduce(lambda a, b: Cactus(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_cactuses], lambda a, b: a.x - b.x)
 
 
 def match_pteros(image, file_names, path):
@@ -49,7 +49,7 @@ def match_pteros(image, file_names, path):
     new_pteros = [filter(lambda ptero: ptero.x == x, objects) for x in unique_x]
     return [reduce(lambda a, b: Pterodactyl(a.x, max(a.width, b.width), max(a.height, b.height)), x) for x in new_pteros]
 
-
+"""
 def match_dino(image, path):
     dinos = []
     img_rgb = cv2.cvtColor(numpy.asarray(image), cv2.COLOR_RGB2BGR)
@@ -66,10 +66,10 @@ def match_dino(image, path):
         return dino[0]
     else:
         return None
+"""
 
 
 def get_objects_from_image(image):
     cactuses = match_cactuses(image, cactusPaths, cactusPath)
     pteros = match_pteros(image, pteroPaths, pteroPath)
-    dino = match_dino(image, dinoPath)
-    return (dino, cactuses, pteros)
+    return cactuses, pteros

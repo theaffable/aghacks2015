@@ -19,9 +19,8 @@ DINO_WIDTH = 20
 ACCELERATION = 0.0001
 MAX_SPEED = 13
 SPEED = 6
-FPS = 60.0
-BROWSER_OPEN_TIME = 3
-DINO_RANDOM_HEIGHT_LOL = 98
+FPS = 300.0
+BROWSER_OPEN_TIME = 5
 
 
 def calculate_speed(previous_speed, time, acceleration):
@@ -36,14 +35,13 @@ def calculate_speed(previous_speed, time, acceleration):
     return current_speed
 
 
-def convert_dino_height(height):
-    return DINO_RANDOM_HEIGHT_LOL - height
-
 
 def perform_action(action, browser):
     """
     Performs given action inside the browser.
     """
+    elem = browser.find_element_by_tag_name('canvas')   # Find the search box
+
     if action == Actions.JUMP:
         webdriver.ActionChains(browser).key_up(Keys.UP).perform()
     elif action == Actions.DUCK:
